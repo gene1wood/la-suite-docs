@@ -9,6 +9,11 @@ on:
 permissions:
   contents: read
 
+# Only the latest commit matters: a newer push cancels the run in progress.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   install-dependencies:
     uses: ./.github/workflows/dependencies.yml
